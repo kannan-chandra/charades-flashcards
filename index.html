@@ -2,273 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Charades Timer</title>
+  <title>Party Games</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <style>
     :root {
-  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  color-scheme: dark;
-  --bg: #1e1e1e;
-  --card: #2a2a2a;
-  --text: #f5f5f5;
-  --subtle: #cccccc;
-  --primary: #4f8cff;
-  --secondary: #444;
-  --danger: #ff4f4f;
-}
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      color-scheme: dark;
+      --bg: #1e1e1e;
+      --card: #2a2a2a;
+      --text: #f5f5f5;
+      --subtle: #cccccc;
+      --primary: #4f8cff;
+    }
 
-* { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  background: var(--bg);
-  color: var(--text);
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      color: var(--text);
+    }
 
-/* ⬇️ Updated layout rules */
-.screen {
-  display: none;
-  height: 100dvh;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem 0;
-  gap: 0.5rem;
-}
+    main {
+      flex: 1;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+    }
 
-.screen.active { display: flex; }
+    h1 {
+      color: var(--text);
+      text-align: center;
+      margin: 0.5rem 0;
+      font-size: 2.5rem;
+    }
 
-/* Spacing tightened */
-h1, h2, h3, p {
-  color: var(--text);
-  text-align: center;
-  margin: 0.25rem 0;
-}
+    .game-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+    }
 
-/* Slightly smaller word box */
-.word-box {
-  margin: 1rem 0;
-  padding: 1rem 1rem;
-  border-radius: 1rem;
-  background: var(--card);
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-  word-wrap: break-word;
-}
+    .game-card {
+      padding: 1.5rem;
+      border-radius: 1rem;
+      background: var(--card);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: var(--text);
+      border: 2px solid transparent;
+    }
+
+    .game-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .game-card:active {
+      transform: scale(0.98);
+    }
+
+    .game-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .game-description {
+      font-size: 0.95rem;
+      color: var(--subtle);
+      margin: 0;
+    }
   </style>
 </head>
 <body>
   <main>
-    <!-- Start Screen -->
-    <section id="screen-start" class="screen active">
-      <h1>Charades</h1>
-      <p>60 seconds to guess as many words as you can.</p>
-      <p>Tap <strong>Correct</strong> when your team guesses it, or <strong>Skip</strong> to move on.</p>
-      <div class="buttons">
-        <button class="btn-primary" onclick="startGame()">Start Game</button>
-      </div>
-    </section>
-
-    <!-- Game Screen -->
-    <section id="screen-game" class="screen">
-      <h2>Go!</h2>
-      <div class="timer" id="timer">60</div>
-      <div class="word-box" id="current-word">Word will appear here</div>
-      <div class="buttons">
-        <button class="btn-secondary" onclick="skipWord()">Skip</button>
-        <button class="btn-primary" onclick="correctWord()">Correct</button>
-      </div>
-    </section>
-
-    <!-- Summary Screen -->
-    <section id="screen-summary" class="screen">
-      <h2>Time's up!</h2>
-      <p class="score">Score: <span id="summary-score">0</span></p>
-
-      <div class="summary-section">
-        <h3>Correct guesses</h3>
-        <ul id="correct-list"></ul>
-
-        <h3>Skipped</h3>
-        <ul id="skipped-list"></ul>
-      </div>
-
-      <div class="buttons">
-        <button class="btn-primary" onclick="startGame()">Play Again</button>
-        <button class="btn-secondary" onclick="goToStart()">Back to Start</button>
-      </div>
-    </section>
+    <h1>Party Games</h1>
+    <div class="game-list">
+      <a href="charades.html" class="game-card">
+        <h2 class="game-title">Charades</h2>
+        <p class="game-description">Act out words without speaking</p>
+      </a>
+      <a href="spyfall.html" class="game-card">
+        <h2 class="game-title">Spyfall</h2>
+        <p class="game-description">Find the spy among you</p>
+      </a>
+      <a href="vellaiyappan.html" class="game-card">
+        <h2 class="game-title">Vellaiyappan</h2>
+        <p class="game-description">Find who has the different word</p>
+      </a>
+    </div>
   </main>
-
-  <script>
-    // === Hardcoded list of answers ===
-    // Edit this list to customize your game.
-    const words = [
-      "Elephant",
-      "Spaceship",
-      "Making pizza",
-      "Swimming",
-      "Doctor",
-      "Superhero",
-      "Football",
-      "Dancing",
-      "Singing",
-      "Cooking",
-      "Flying a kite",
-      "Reading a book",
-      "Driving a car",
-      "Basketball",
-      "Pirate",
-      "Robot",
-      "Teacher",
-      "Soccer",
-      "Gardening",
-      "Taking a selfie"
-    ];
-
-    let timerSeconds = 60;
-    let timerId = null;
-    let currentIndex = 0;
-    let correct = [];
-    let skipped = [];
-
-    function showScreen(id) {
-      const screens = document.querySelectorAll('.screen');
-      screens.forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-    }
-
-    function updateTimerDisplay() {
-      const timerEl = document.getElementById('timer');
-      if (timerEl) timerEl.textContent = timerSeconds;
-    }
-
-    function showWord() {
-      const wordEl = document.getElementById('current-word');
-      if (!wordEl || words.length === 0) return;
-      wordEl.textContent = words[currentIndex];
-    }
-
-    function nextWord() {
-      if (words.length === 0) return;
-
-      currentIndex++;
-      if (currentIndex >= words.length) {
-        // If we reach the end, reshuffle and start from the beginning
-        shuffle(words);
-        currentIndex = 0;
-      }
-      showWord();
-    }
-
-    function startGame() {
-      // Reset state
-      correct = [];
-      skipped = [];
-      timerSeconds = 60;
-      currentIndex = 0;
-      shuffle(words);
-      showWord();
-      updateTimerDisplay();
-
-      // Switch screen
-      showScreen('screen-game');
-
-      // Clear any previous timer
-      if (timerId !== null) {
-        clearInterval(timerId);
-      }
-
-      // Start timer
-      timerId = setInterval(() => {
-        timerSeconds--;
-        if (timerSeconds < 0) {
-          timerSeconds = 0;
-        }
-        updateTimerDisplay();
-
-        if (timerSeconds <= 0) {
-          endGame();
-        }
-      }, 1000);
-    }
-
-    function endGame() {
-      if (timerId !== null) {
-        clearInterval(timerId);
-        timerId = null;
-      }
-      populateSummary();
-      showScreen('screen-summary');
-    }
-
-    function correctWord() {
-      if (timerSeconds <= 0) return;
-      correct.push(words[currentIndex]);
-      nextWord();
-    }
-
-    function skipWord() {
-      if (timerSeconds <= 0) return;
-      skipped.push(words[currentIndex]);
-      nextWord();
-    }
-
-    function populateSummary() {
-      const scoreEl = document.getElementById('summary-score');
-      const correctListEl = document.getElementById('correct-list');
-      const skippedListEl = document.getElementById('skipped-list');
-
-      scoreEl.textContent = correct.length;
-
-      correctListEl.innerHTML = "";
-      skippedListEl.innerHTML = "";
-
-      if (correct.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = "None this round.";
-        correctListEl.appendChild(li);
-      } else {
-        correct.forEach(word => {
-          const li = document.createElement('li');
-          li.textContent = word;
-          correctListEl.appendChild(li);
-        });
-      }
-
-      if (skipped.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = "None skipped.";
-        skippedListEl.appendChild(li);
-      } else {
-        skipped.forEach(word => {
-          const li = document.createElement('li');
-          li.textContent = word;
-          skippedListEl.appendChild(li);
-        });
-      }
-    }
-
-    function goToStart() {
-      if (timerId !== null) {
-        clearInterval(timerId);
-        timerId = null;
-      }
-      showScreen('screen-start');
-    }
-  </script>
 </body>
 </html>
