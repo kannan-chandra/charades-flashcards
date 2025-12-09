@@ -7,12 +7,17 @@
   <style>
     :root {
       font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      color-scheme: light dark;
+      color-scheme: dark;
+      --bg: #1e1e1e;
+      --card: #2a2a2a;
+      --text: #f5f5f5;
+      --subtle: #cccccc;
+      --primary: #4f8cff;
+      --secondary: #444;
+      --danger: #ff4f4f;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -20,7 +25,8 @@
       display: flex;
       align-items: stretch;
       justify-content: center;
-      background: #f5f5f5;
+      background: var(--bg);
+      color: var(--text);
     }
 
     main {
@@ -35,42 +41,33 @@
     .screen {
       display: none;
       flex: 1;
-      display: none;
       flex-direction: column;
       justify-content: center;
       gap: 1rem;
     }
 
-    .screen.active {
-      display: flex;
-    }
+    .screen.active { display: flex; }
 
-    h1, h2 {
-      text-align: center;
-      margin: 0.5rem 0;
-    }
-
-    p {
-      margin: 0.25rem 0;
-      text-align: center;
-    }
+    h1, h2, h3, p { color: var(--text); text-align: center; margin: 0.5rem 0; }
 
     .timer {
       text-align: center;
       font-size: 2.5rem;
       font-weight: 700;
       margin-top: 0.5rem;
+      color: #ffffff;
     }
 
     .word-box {
       margin: 1.5rem 0;
       padding: 1.5rem 1.25rem;
       border-radius: 1rem;
-      background: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      background: var(--card);
       text-align: center;
       font-size: 2rem;
       font-weight: 600;
+      color: var(--text);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
       word-wrap: break-word;
     }
 
@@ -90,60 +87,39 @@
       font-weight: 600;
       width: 100%;
       touch-action: manipulation;
+      color: #fff;
     }
 
-    button:active {
-      transform: scale(0.97);
-    }
+    button:active { transform: scale(0.97); }
 
-    .btn-primary {
-      background: #2563eb;
-      color: #ffffff;
-    }
-
-    .btn-secondary {
-      background: #e5e7eb;
-      color: #111827;
-    }
-
-    .btn-danger {
-      background: #ef4444;
-      color: #ffffff;
-    }
+    .btn-primary { background: var(--primary); }
+    .btn-secondary { background: var(--secondary); }
+    .btn-danger { background: var(--danger); }
 
     .summary-section {
-      background: white;
+      background: var(--card);
       border-radius: 1rem;
       padding: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
       max-height: 40vh;
       overflow-y: auto;
-    }
-
-    .summary-section h3 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
     }
 
     ul {
       padding-left: 1.25rem;
       margin: 0.25rem 0 0.75rem;
+      color: var(--subtle);
     }
 
     .score {
       font-size: 1.2rem;
       font-weight: 600;
-      text-align: center;
       margin-bottom: 0.5rem;
     }
 
     @media (min-width: 600px) {
-      .buttons {
-        flex-direction: row;
-      }
-      .buttons button {
-        width: 50%;
-      }
+      .buttons { flex-direction: row; }
+      .buttons button { width: 50%; }
     }
   </style>
 </head>
@@ -191,29 +167,11 @@
   </main>
 
   <script>
-    // === Hardcoded list of answers ===
-    // Edit this list to customize your game.
     const words = [
-      "Elephant",
-      "Spaceship",
-      "Making pizza",
-      "Swimming",
-      "Doctor",
-      "Superhero",
-      "Football",
-      "Dancing",
-      "Singing",
-      "Cooking",
-      "Flying a kite",
-      "Reading a book",
-      "Driving a car",
-      "Basketball",
-      "Pirate",
-      "Robot",
-      "Teacher",
-      "Soccer",
-      "Gardening",
-      "Taking a selfie"
+      "Elephant","Spaceship","Making pizza","Swimming","Doctor","Superhero",
+      "Football","Dancing","Singing","Cooking","Flying a kite","Reading a book",
+      "Driving a car","Basketball","Pirate","Robot","Teacher","Soccer",
+      "Gardening","Taking a selfie"
     ];
 
     let timerSeconds = 60;
@@ -223,8 +181,7 @@
     let skipped = [];
 
     function showScreen(id) {
-      const screens = document.querySelectorAll('.screen');
-      screens.forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
 
@@ -236,22 +193,16 @@
     }
 
     function updateTimerDisplay() {
-      const timerEl = document.getElementById('timer');
-      if (timerEl) timerEl.textContent = timerSeconds;
+      document.getElementById('timer').textContent = timerSeconds;
     }
 
     function showWord() {
-      const wordEl = document.getElementById('current-word');
-      if (!wordEl || words.length === 0) return;
-      wordEl.textContent = words[currentIndex];
+      document.getElementById('current-word').textContent = words[currentIndex];
     }
 
     function nextWord() {
-      if (words.length === 0) return;
-
       currentIndex++;
       if (currentIndex >= words.length) {
-        // If we reach the end, reshuffle and start from the beginning
         shuffle(words);
         currentIndex = 0;
       }
@@ -259,7 +210,6 @@
     }
 
     function startGame() {
-      // Reset state
       correct = [];
       skipped = [];
       timerSeconds = 60;
@@ -267,34 +217,20 @@
       shuffle(words);
       showWord();
       updateTimerDisplay();
-
-      // Switch screen
       showScreen('screen-game');
 
-      // Clear any previous timer
-      if (timerId !== null) {
-        clearInterval(timerId);
-      }
+      if (timerId !== null) clearInterval(timerId);
 
-      // Start timer
       timerId = setInterval(() => {
         timerSeconds--;
-        if (timerSeconds < 0) {
-          timerSeconds = 0;
-        }
         updateTimerDisplay();
-
-        if (timerSeconds <= 0) {
-          endGame();
-        }
+        if (timerSeconds <= 0) endGame();
       }, 1000);
     }
 
     function endGame() {
-      if (timerId !== null) {
-        clearInterval(timerId);
-        timerId = null;
-      }
+      clearInterval(timerId);
+      timerId = null;
       populateSummary();
       showScreen('screen-summary');
     }
@@ -312,47 +248,15 @@
     }
 
     function populateSummary() {
-      const scoreEl = document.getElementById('summary-score');
-      const correctListEl = document.getElementById('correct-list');
-      const skippedListEl = document.getElementById('skipped-list');
+      document.getElementById('summary-score').textContent = correct.length;
 
-      scoreEl.textContent = correct.length;
+      const correctList = document.getElementById('correct-list');
+      const skippedList = document.getElementById('skipped-list');
+      correctList.innerHTML = "";
+      skippedList.innerHTML = "";
 
-      correctListEl.innerHTML = "";
-      skippedListEl.innerHTML = "";
+      (correct.length ? correct : ["None this round."])
+        .forEach(w => correctList.appendChild(Object.assign(document.createElement("li"), {textContent: w})));
 
-      if (correct.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = "None this round.";
-        correctListEl.appendChild(li);
-      } else {
-        correct.forEach(word => {
-          const li = document.createElement('li');
-          li.textContent = word;
-          correctListEl.appendChild(li);
-        });
-      }
-
-      if (skipped.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = "None skipped.";
-        skippedListEl.appendChild(li);
-      } else {
-        skipped.forEach(word => {
-          const li = document.createElement('li');
-          li.textContent = word;
-          skippedListEl.appendChild(li);
-        });
-      }
-    }
-
-    function goToStart() {
-      if (timerId !== null) {
-        clearInterval(timerId);
-        timerId = null;
-      }
-      showScreen('screen-start');
-    }
-  </script>
-</body>
-</html>
+      (skipped.length ? skipped : ["None skipped."])
+        .forEach(w => skippedList.appendChild(Object.assign(document.createElement("li"), {textContent: w
