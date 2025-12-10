@@ -22,7 +22,7 @@
 
     body {
       margin: 0;
-      height: 100vh;
+      height: 100dvh;
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -34,7 +34,7 @@
     main {
       flex: 1;
       max-width: 600px;
-      max-height: 100vh;
+      max-height: 100dvh;
       margin: 0 auto;
       padding: 1.25rem;
       display: flex;
@@ -44,8 +44,9 @@
 
     .screen {
       display: none;
+      flex: 1;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       gap: 1rem;
       min-height: 0;
       padding: 0.5rem 0;
@@ -67,6 +68,7 @@
       border-radius: 1rem;
       padding: 1.5rem 1.25rem;
       margin: 0.5rem 0;
+      flex-shrink: 0;
     }
 
     .spectrum-labels {
@@ -96,10 +98,32 @@
       position: relative;
       height: 80px;
       background: var(--secondary);
-      border-radius: 2rem;
+      border-radius: 0.5rem;
       margin: 0.5rem 0;
       cursor: pointer;
     }
+
+    .notches {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .notch {
+      position: absolute;
+      top: 0;
+      width: 2px;
+      background: rgba(245, 245, 245, 0.3);
+      transform: translateX(-50%);
+    }
+
+    .notch.h1 { height: 8px; }
+    .notch.h2 { height: 12px; }
+    .notch.h3 { height: 16px; }
+    .notch.h4 { height: 24px; }
 
     .guess-marker {
       position: absolute;
@@ -123,7 +147,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      border-radius: 2rem;
+      border-radius: 0.5rem;
       pointer-events: none;
     }
 
@@ -180,25 +204,12 @@
       border-right: 3px solid #ff9800;
     }
 
-    .clue-display {
-      background: var(--secondary);
-      border-radius: 1rem;
-      padding: 1.25rem;
-      text-align: center;
-      margin: 0.5rem 0;
-    }
-
-    .clue-text {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
     .buttons {
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
       margin-top: 0.5rem;
+      flex-shrink: 0;
     }
 
     button {
@@ -229,11 +240,49 @@
       text-align: center;
       font-size: 0.9rem;
       color: var(--subtle);
+      flex-shrink: 0;
+    }
+
+    @media (max-height: 500px) {
+      main { padding: 0.75rem; }
+
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.2rem; }
+
+      h1, h2, h3, p { margin: 0.1rem 0; }
+
+      .screen { gap: 0.5rem; padding: 0.25rem 0; }
+
+      .spectrum-container {
+        padding: 0.75rem;
+        margin: 0.25rem 0;
+      }
+
+      .spectrum-bar { height: 50px; }
+
+      .spectrum-labels { margin-bottom: 0.5rem; }
+
+      .spectrum-label { font-size: 1rem; }
+
+      .info-box {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .buttons {
+        gap: 0.5rem;
+        margin-top: 0.25rem;
+      }
+
+      button {
+        padding: 0.75rem;
+        font-size: 1rem;
+      }
     }
 
     @media (min-width: 600px) {
-      .buttons { flex-direction: row; }
-      .buttons button { width: 50%; }
+      .buttons { flex-direction: row; justify-content: center; }
+      .buttons button:not(:only-child) { width: 50%; }
     }
   </style>
 </head>
@@ -243,7 +292,7 @@
     <section id="screen-start" class="screen active">
       <h1>Wavelength</h1>
       <p>One player is the psychic. They see a spectrum and a target zone.</p>
-      <p>The psychic gives a <strong>one-word clue</strong> to help the team guess where the target is.</p>
+      <p>The psychic gives a <strong>verbal clue</strong> to help the team guess where the target is.</p>
       <div class="info-box">
         <p><strong>Example:</strong> For "Cold → Hot", if the target is near Cold, the clue might be "Freezer"</p>
       </div>
@@ -262,6 +311,7 @@
           <div class="spectrum-label right" id="right-label">Hot</div>
         </div>
         <div class="spectrum-bar">
+          <div class="notches" id="psychic-notches"></div>
           <div class="target-zones" id="psychic-zones">
             <div class="zone-far" id="psychic-zone-far"></div>
             <div class="zone-close" id="psychic-zone-close"></div>
@@ -270,7 +320,7 @@
         </div>
       </div>
       <div class="info-box">
-        <p>Give your team a one-word clue to guide them to the green zone</p>
+        <p>Give your team a verbal clue to guide them to the green zone</p>
       </div>
       <div class="buttons">
         <button class="btn-primary" onclick="showGuessScreen()">Team Ready</button>
@@ -280,15 +330,13 @@
     <!-- Guess Screen -->
     <section id="screen-guess" class="screen">
       <h2>Team: Make Your Guess</h2>
-      <div class="clue-display">
-        <div class="clue-text" id="clue-text">Psychic's Clue</div>
-      </div>
       <div class="spectrum-container">
         <div class="spectrum-labels">
           <div class="spectrum-label left" id="guess-left-label">Cold</div>
           <div class="spectrum-label right" id="guess-right-label">Hot</div>
         </div>
         <div class="spectrum-bar" id="guess-bar">
+          <div class="notches" id="guess-notches"></div>
           <div class="guess-marker" id="guess-marker"></div>
         </div>
       </div>
@@ -309,6 +357,7 @@
           <div class="spectrum-label right" id="reveal-right-label">Hot</div>
         </div>
         <div class="spectrum-bar" id="reveal-bar">
+          <div class="notches" id="reveal-notches"></div>
           <div class="result-overlay" id="result-overlay"></div>
           <div class="target-zones visible" id="reveal-zones">
             <div class="zone-far" id="reveal-zone-far"></div>
@@ -329,27 +378,60 @@
   </main>
 
   <script>
-    const spectrums = [
-      ["Cold", "Hot"],
-      ["Sad", "Happy"],
-      ["Weak", "Strong"],
-      ["Quiet", "Loud"],
-      ["Slow", "Fast"],
-      ["Small", "Large"],
-      ["Dark", "Light"],
-      ["Simple", "Complex"],
-      ["Boring", "Exciting"],
-      ["Cheap", "Expensive"],
-      ["Old", "New"],
-      ["Soft", "Hard"],
-      ["Empty", "Full"],
-      ["Clean", "Dirty"],
-      ["Safe", "Dangerous"]
-    ];
-
+    let spectrums = [];
     let currentSpectrum = [];
     let targetPosition = 50;
     let guessPosition = null;
+
+    async function loadSpectrums() {
+      try {
+        const response = await fetch('word-sets/wavelength-1.txt');
+        const text = await response.text();
+        const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+        const normalSpectrums = [];
+        const prioritySpectrums = [];
+        let isPriority = false;
+
+        for (let i = 1; i < lines.length; i++) {
+          const line = lines[i];
+
+          if (line === '---') {
+            isPriority = true;
+            continue;
+          }
+
+          const parts = line.split(',');
+          if (parts.length === 2) {
+            const spectrum = [parts[0].trim(), parts[1].trim()];
+            if (isPriority) {
+              prioritySpectrums.push(spectrum);
+            } else {
+              normalSpectrums.push(spectrum);
+            }
+          }
+        }
+
+        spectrums = [];
+        normalSpectrums.forEach(s => spectrums.push(s));
+        for (let i = 0; i < 10; i++) {
+          prioritySpectrums.forEach(s => spectrums.push(s));
+        }
+
+        if (spectrums.length === 0) {
+          spectrums = [["Cold", "Hot"]];
+        }
+      } catch (error) {
+        console.error('Failed to load spectrums:', error);
+        spectrums = [
+          ["Cold", "Hot"],
+          ["Sad", "Happy"],
+          ["Weak", "Strong"]
+        ];
+      }
+    }
+
+    loadSpectrums();
 
     function goHome() {
       window.location.href = 'index.html';
@@ -362,6 +444,29 @@
     }
 
     const CIRCLE_WIDTH_PERCENT = 1.8;
+
+    function createNotches(containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+
+      for (let i = 1; i <= 15; i++) {
+        const notch = document.createElement('div');
+        notch.className = 'notch';
+
+        let heightClass = 'h1';
+        if (i % 8 === 0) {
+          heightClass = 'h4';
+        } else if (i % 4 === 0) {
+          heightClass = 'h3';
+        } else if (i % 2 === 0) {
+          heightClass = 'h2';
+        }
+
+        notch.classList.add(heightClass);
+        notch.style.left = (i * 6.25) + '%';
+        container.appendChild(notch);
+      }
+    }
 
     function setTargetZones(targetPos, prefix) {
       const bullsEye = document.getElementById(prefix + '-zone-bulls');
@@ -389,6 +494,11 @@
     }
 
     function startRound() {
+      if (spectrums.length === 0) {
+        alert('Spectrums not loaded yet. Please try again.');
+        return;
+      }
+
       currentSpectrum = spectrums[Math.floor(Math.random() * spectrums.length)];
       targetPosition = Math.random() * 80 + 10;
       guessPosition = null;
@@ -396,6 +506,7 @@
       document.getElementById('left-label').textContent = currentSpectrum[0];
       document.getElementById('right-label').textContent = currentSpectrum[1];
 
+      createNotches('psychic-notches');
       setTargetZones(targetPosition, 'psychic');
       document.getElementById('psychic-zones').classList.add('visible');
 
@@ -403,16 +514,10 @@
     }
 
     function showGuessScreen() {
-      const clueInput = prompt('Psychic: Enter your one-word clue');
-      if (!clueInput || !clueInput.trim()) {
-        alert('Please enter a clue');
-        return;
-      }
-
-      document.getElementById('clue-text').textContent = clueInput.trim();
       document.getElementById('guess-left-label').textContent = currentSpectrum[0];
       document.getElementById('guess-right-label').textContent = currentSpectrum[1];
 
+      createNotches('guess-notches');
       const guessMarker = document.getElementById('guess-marker');
       guessMarker.classList.remove('placed');
       document.getElementById('reveal-btn').disabled = true;
@@ -438,6 +543,7 @@
       document.getElementById('reveal-left-label').textContent = currentSpectrum[0];
       document.getElementById('reveal-right-label').textContent = currentSpectrum[1];
 
+      createNotches('reveal-notches');
       const revealGuessMarker = document.getElementById('reveal-guess-marker');
       revealGuessMarker.style.left = guessPosition + '%';
 
