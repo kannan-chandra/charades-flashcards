@@ -1,0 +1,112 @@
+Classic
+Good,Bad
+Cold,Hot
+Colorful,Colorless
+High calorie,Low calorie
+Feels good,Feels bad
+Expensive,Cheap
+Common,Rare
+Sexy,Unsexy 
+Famous,Unknown
+Clean,Dirty
+Requires skill,Requires luck
+Flavorful,Flavorless
+Good actor,Bad actor
+Safe job,Dangerous job
+Overpaid,Underpaid
+Wet,Dry
+Overrated skill,Underrated skill
+Encouraged,Forbidden
+Durable,Fragile
+Evil,Good
+Best day of the year,Worst day of the year
+Good habit,Bad habit
+Talented,Untalented
+Light,Dark
+Easy to remember,Hard to remember
+Highbrow,Lowbrow
+Hairy,Hairless
+Flexible,Inflexible
+Beautiful,Ugly
+Happens suddenly,Happens slowly
+Hated,Loved
+Good pizza topping,Bad pizza topping
+Physical activity,Mental activity
+Want,Need
+Wet food,Dry food
+Curvy,Straight
+Easy to pronounce,Hard to pronounce
+A sandwich,Not a sandwich
+Loud place,Quiet place
+Safe,Dangerous
+Useful major,Useless major
+Overrated movie,Underrated movie
+Smooth,Rough
+Good for you,Bad for you
+Pointy,Round
+Happy movie,Sad movie
+Nice animal,Scary animal
+Long lived,Short lived
+Everybody does it,Nobody does it
+Smells good,Smells bad
+Meal,Snack
+Hard,Soft
+Round,Square
+Better cold,Better hot
+Mass produced,Artisanal
+Permanent,Temporary
+Doesn't look like a person,Looks like a person
+Tastes good,Tastes bad
+Overrated,Underrated
+Clean food,Messy food
+Good gift,Bad gift
+Hygienic,Unhygienic
+Good music,Bad music
+Useful,Useless
+Important,Unimportant
+Hard to spell,Easy to spell
+Overrated musician,Underrated musician
+Popular activity,Unpopular activity
+Whole,Divided
+Reliable,Unreliable
+Hard to kill,Easy to kill
+Stable,Unstable
+Pointy animal,Round animal
+Good TV show,Bad TV show
+Traditionally feminine,Traditionally masculine
+Useful body part,Useless body part
+Brilliant,Stupid
+Strong,Weak
+Useful invention,Useless invention
+Hero,Villain
+Useful in an emergency,Useless in an emergency
+For adults,For kids
+Hard to do,Easy to do
+Infinite,Limited
+Good investment,Bad investment
+Heavy topic,Small talk
+Loud,Quiet
+Public knowledge,Secret
+Too big,Too small
+Long,Short
+Capitalist,Socialist
+Mobile,Stationary
+Global issue,Local issue
+Skill,Talent
+Large number,Small number
+Natural,Unnatural
+Vegetable,Fruit
+Firm,Limp
+Easy to sit on,Hard to sit on
+Too much,Not enough
+Vertical,Horizontal
+Homogenous,Heterogeneous
+Good mouthfeel,Bad mouthfeel
+Legal,Illegal
+Shallow thought,Deep thought
+Best chore,Worst chore
+Person who’d beat you up,Person you could beat up
+You don't want your parents to watch you do it,You want your parents to watch you do it
+---
+Kuthu song,Melody song
+Nalla padam,Mokka padam
