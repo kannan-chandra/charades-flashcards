@@ -3,22 +3,20 @@ Prince - இளவரசன்
 Princess - இளவரசி
 King - ராஜா
 Queen - ராணி
-Witch - மந்திரவாதி
-Wizard - வித்தைக்காரன்
-Knight
-Giant - பெரியவன்
-Thief - கொள்ளைக்காரன்
+Witch - சூனியக்காரி
+Giant
+Thief - திருடன்
 Farmer - விவசாயி
 Hunter - வேடன்
-Fairy
+Fairy - தேவதை
 Troll
 Dragon
 Beggar - பிச்சைக்காரன்
 Merchant - வணிகன்
-Hero - வீரன்
 Stranger - அந்நியன்
 Sorcerer - மந்திரவாதி
 Child - குழந்தை
+Twins - இரட்டையர்
 
 === PLACES ===
 Forest - காடு
@@ -28,41 +26,37 @@ Dungeon
 Bridge - பாலம்
 Cave - குகை
 Village - கிராமம்
-Road - சாலை
+Road - தெரு
 Riverbank - ஆற்றங்கரை
 Mountain - மலை
 Garden - தோட்டம்
 Marketplace - சந்தை
 Harbor - துறைமுகம்
-Meadow
 Desert - பாலைவனம்
 Palace - அரண்மனை
 Hut - குடிசை
 Cellar
-Courtyard - மட்டம்
 Cliff
 
 === OBJECTS ===
 Sword - வாள்
-Shield - கவசம்
 Crown - கிரீடம்
 Ring - மோதிரம்
 Key - சாவி
 Potion
-Map - வரைபடம்
+Ma
 Mirror - கண்ணாடி
 Rope - கயிறு
 Lantern - விளக்கு
 Book - புத்தகம்
-Helmet
 Stone - கல்
 Staff - கோல்
-Treasure - செல்வம்
+Treasure - புதையல்
 Dagger - கத்தி
 Cup - கோப்பை
 Cloak
 Chest - பெட்டி
-Scroll - சுருள்
+Scroll
 
 === EVENTS ===
 Betrayal
@@ -73,7 +67,7 @@ Loss
 Storm
 Battle
 Reunion
-Curse
+Curse - சாபம்
 Journey
 Warning
 Disappearance
