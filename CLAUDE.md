@@ -18,10 +18,12 @@ Static webpage mobile-optimized party games portal hosted on GitHub Pages. No se
 ├── charades.html           # Single-player timed word-guessing
 ├── spyfall.html           # Find the spy (location/role game)
 ├── vellaiyappan.html      # Find who has different word (Mr. White)
+├── story.html             # Storytelling card game (Once Upon A Time)
+├── wavelength.html        # Spectrum guessing game (Wavelength)
 └── word-sets/
     ├── charades-N.txt     # Word lists for charades
     ├── white-N.txt        # Word pairs for vellaiyappan
-    └── story-N.txt        # (appears unused currently)
+    └── story-N.txt        # Categorized cards for story
 ```
 
 ## Synchronization System
@@ -94,6 +96,46 @@ Seeds combine sync word, round number, and purpose:
   - Everyone else: Gets word[0] from pair
   - Pair selection: Seeded by sync word + round
 
+### 4. Story (story.html)
+- **Type**: Single-player storytelling card game
+- **Gameplay**: Draw cards to inspire storytelling (based on "Once Upon A Time")
+- **Setup Flow**: Choose word set → Draw cards
+- **Word Sets**: Auto-discovers `story-1.txt`, `story-2.txt`, etc.
+- **Format**: Category headers `=== CATEGORY ===`, then card lines
+- **Card Format**: Lines can be `subtitle - title` or just `title`
+- **Categories**: Person, Place, Thing, Aspect, Event, Ending
+- **Drawing Logic**:
+  - Draws 6 regular cards (max 2 per category for variety)
+  - Draws 1 ending card (spans full width, blue background)
+  - All cards shuffled randomly
+- **Features**:
+  - Tap cards to mark as "used" (grayed out)
+  - Redraw button generates new hand
+  - Cards show category label at top
+  - If only one word set exists, skips selection screen
+
+### 5. Wavelength (wavelength.html)
+- **Type**: Multiplayer cooperative guessing game
+- **Gameplay**: Psychic gives clue to guide team's guess on a spectrum (based on "Wavelength")
+- **Setup Flow**: Start Round → Psychic sees target → Give clue → Team guesses → Reveal
+- **No Sync System**: Uses truly random positioning (not seeded like Spyfall/Vellaiyappan)
+- **Spectrums**: 15 hardcoded pairs in JS array (e.g., Cold→Hot, Sad→Happy, Weak→Strong)
+- **Game Flow**:
+  1. Random spectrum selected (e.g., "Cold → Hot")
+  2. Random target position (10-90% along spectrum) with colored zones
+  3. Psychic sees target zones, gives one-word clue via prompt
+  4. Team taps spectrum to place guess marker
+  5. Reveal shows distance scoring
+- **Scoring Zones**:
+  - Bulls-eye (green): ±0.9% of target
+  - Close (yellow): ±2.7% of target
+  - Far (orange): ±4.5% of target
+  - Way off: Beyond far zone
+- **Features**:
+  - Visual feedback with colored zones and overlays
+  - Result screen shows both guess marker and target zones
+  - No word sets or external files - all data embedded
+
 ## Word Set Format
 
 ### Charades Word Sets (charades-N.txt)
@@ -114,8 +156,25 @@ Coffee,Tea
 ```
 Line 1 = Display name, rest = comma-separated word pairs
 
+### Story Word Sets (story-N.txt)
+```
+=== PEOPLE ===
+Knight - Sir Lancelot
+Wizard
+Princess - Aurora
+=== PLACES ===
+Castle
+Forest - Enchanted
+=== ENDINGS ===
+Happily Ever After
+```
+- Category headers: `=== CATEGORY ===` (category name pluralized, will be singularized in display)
+- Card format: `subtitle - title` or just `title`
+- Ending cards get special full-width blue styling
+- Categories typically: Person, Place, Thing, Aspect, Event, Ending
+
 ## Auto-Discovery System
-Both charades and vellaiyappan use async discovery:
+Charades, vellaiyappan, and story use async discovery:
 ```javascript
 async function discoverWordSets() {
   const sets = [];
