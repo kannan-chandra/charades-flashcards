@@ -23,7 +23,8 @@ Static webpage mobile-optimized party games portal hosted on GitHub Pages. No se
 └── word-sets/
     ├── charades-N.txt     # Word lists for charades
     ├── white-N.txt        # Word pairs for vellaiyappan
-    └── story-N.txt        # Categorized cards for story
+    ├── story-N.txt        # Categorized cards for story
+    └── wavelength-N.txt   # Spectrum pairs for wavelength
 ```
 
 ## Synchronization System
@@ -119,11 +120,12 @@ Seeds combine sync word, round number, and purpose:
 - **Gameplay**: Psychic gives clue to guide team's guess on a spectrum (based on "Wavelength")
 - **Setup Flow**: Start Round → Psychic sees target → Give clue → Team guesses → Reveal
 - **No Sync System**: Uses truly random positioning (not seeded like Spyfall/Vellaiyappan)
-- **Spectrums**: 15 hardcoded pairs in JS array (e.g., Cold→Hot, Sad→Happy, Weak→Strong)
+- **Word Sets**: Loads from `wavelength-1.txt` (spectrum pairs)
+- **Format**: First line = display name, remaining lines = comma-separated spectrum pairs (e.g., `Cold,Hot`)
 - **Game Flow**:
   1. Random spectrum selected (e.g., "Cold → Hot")
   2. Random target position (10-90% along spectrum) with colored zones
-  3. Psychic sees target zones, gives one-word clue via prompt
+  3. Psychic sees target zones, gives verbal clue to team (in person)
   4. Team taps spectrum to place guess marker
   5. Reveal shows distance scoring
 - **Scoring Zones**:
@@ -134,7 +136,8 @@ Seeds combine sync word, round number, and purpose:
 - **Features**:
   - Visual feedback with colored zones and overlays
   - Result screen shows both guess marker and target zones
-  - No word sets or external files - all data embedded
+  - 15 notches along spectrum bar for visual positioning aid
+  - Verbal clue delivery (no text input required)
 
 ## Word Set Format
 
@@ -173,8 +176,21 @@ Happily Ever After
 - Ending cards get special full-width blue styling
 - Categories typically: Person, Place, Thing, Aspect, Event, Ending
 
+### Wavelength Word Sets (wavelength-N.txt)
+```
+Classic
+Cold,Hot
+Sad,Happy
+Weak,Strong
+---
+Kuthu song,Melody song
+```
+Line 1 = Display name, rest = comma-separated spectrum pairs
+- Optional `---` delimiter: Items below it are 10x more likely to be selected (weighted random selection)
+- Items above delimiter appear once in pool, items below appear 10 times
+
 ## Auto-Discovery System
-Charades, vellaiyappan, and story use async discovery:
+Charades, vellaiyappan, story, and wavelength use async discovery (or direct loading):
 ```javascript
 async function discoverWordSets() {
   const sets = [];
