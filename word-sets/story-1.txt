@@ -1,0 +1,131 @@
+=== CHARACTERS ===
+Prince - இளவரசன்
+Princess - இளவரசி
+King - ராஜா
+Queen - ராணி
+Witch - மந்திரவாதி
+Wizard - வித்தைக்காரன்
+Knight
+Giant - பெரியவன்
+Thief - கொள்ளைக்காரன்
+Farmer - விவசாயி
+Hunter - வேடன்
+Fairy
+Troll
+Dragon
+Beggar - பிச்சைக்காரன்
+Merchant - வணிகன்
+Hero - வீரன்
+Stranger - அந்நியன்
+Sorcerer - மந்திரவாதி
+Child - குழந்தை
+
+=== PLACES ===
+Forest - காடு
+Castle - கோட்டை
+Tower - கோபுரம்
+Dungeon
+Bridge - பாலம்
+Cave - குகை
+Village - கிராமம்
+Road - சாலை
+Riverbank - ஆற்றங்கரை
+Mountain - மலை
+Garden - தோட்டம்
+Marketplace - சந்தை
+Harbor - துறைமுகம்
+Meadow
+Desert - பாலைவனம்
+Palace - அரண்மனை
+Hut - குடிசை
+Cellar
+Courtyard - மட்டம்
+Cliff
+
+=== OBJECTS ===
+Sword - வாள்
+Shield - கவசம்
+Crown - கிரீடம்
+Ring - மோதிரம்
+Key - சாவி
+Potion
+Map - வரைபடம்
+Mirror - கண்ணாடி
+Rope - கயிறு
+Lantern - விளக்கு
+Book - புத்தகம்
+Helmet
+Stone - கல்
+Staff - கோல்
+Treasure - செல்வம்
+Dagger - கத்தி
+Cup - கோப்பை
+Cloak
+Chest - பெட்டி
+Scroll - சுருள்
+
+=== EVENTS ===
+Betrayal
+Rescue
+Escape
+Discovery
+Loss
+Storm
+Battle
+Reunion
+Curse
+Journey
+Warning
+Disappearance
+Transformation
+Accident
+Celebration
+Hunt
+Attack
+Promise
+Mistake
+Challenge
+
+=== ASPECTS ===
+Lost
+Cursed
+Enchanted
+Brave
+Angry
+Hungry
+Tired
+Greedy
+Curious
+Lonely
+Ancient
+Mysterious
+Beautiful
+Frightened
+Foolish
+Invisible
+Weak
+Proud
+Silent
+Powerful
+
+=== ENDINGS ===
+And peace returned at last.
+And they lived happily ever after.
+And no one saw them again.
+And so the curse was broken.
+And the kingdom was safe once more.
+And the journey finally ended.
+And they never looked back.
+And order was restored.
+And the truth was finally revealed.
+And they found their way home.
+And that was the end of it.
+And their tale became legend.
+And the danger passed forever.
+And the story was at last complete.
+And they were never separated again.
+And the shadows faded away.
+And hope returned to the land.
+And the mystery remained unsolved.
+And their fates were sealed.
+And the world moved on.
