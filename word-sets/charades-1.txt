@@ -1,21 +1,45 @@
-Classic
-Elephant
-Spaceship
-Making pizza
-Swimming
-Doctor
-Superhero
-Football
-Dancing
-Singing
-Cooking
-Flying a kite
-Reading a book
-Driving a car
-Basketball
-Pirate
-Robot
-Teacher
-Soccer
-Gardening
-Taking a selfie
+Food
+Idli
+Dosai
+Uttappam
+Pongal
+Sambar
+Rasam
+Vadai
+Murukku
+Appalam
+Lemon rice
+Tamarind rice
+Curd rice
+Biryani
+Kothu parotta
+Parotta
+Paniyaram
+Adai
+Kozhukattai
+Filter coffee
+Banana leaf meal
+Fish curry
+Chicken Chettinad
+Pepper chicken
+Mutton sukka
+Payasam
+Hainanese chicken rice
+Laksa
+Chilli crab
+Char kway teow
+Kaya toast
+Kopi O
+Nasi lemak
+Roti prata
+Satay
+Carrot cake
+Fish head curry
+Nasi goreng
+Mee goreng
+Mee rebus
+Hokkien mee
+Ice kachang
+Milo dinosaur
+Curry puff
+Sambal stingray
