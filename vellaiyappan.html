@@ -21,21 +21,24 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       align-items: stretch;
       justify-content: center;
       background: var(--bg);
       color: var(--text);
+      overflow: hidden;
     }
 
     main {
       flex: 1;
       max-width: 600px;
+      max-height: 100vh;
       margin: 0 auto;
       padding: 1.25rem;
       display: flex;
       flex-direction: column;
+      overflow-y: auto;
     }
 
     .screen {
@@ -193,6 +196,9 @@
       <h1>Vellaiyappan</h1>
       <p>Choose a word set</p>
       <div class="word-set-list" id="word-set-list"></div>
+      <div class="buttons">
+        <button class="btn-secondary" onclick="goHome()">Back</button>
+      </div>
     </section>
 
     <!-- Setup: Enter Word -->
@@ -243,6 +249,7 @@
         <p>All players ready? Tap Reveal to see your word.</p>
       </div>
       <div class="buttons">
+        <button class="btn-secondary" onclick="goHome()">Back to Menu</button>
         <button class="btn-primary" onclick="revealWord()">Reveal Word</button>
       </div>
     </section>
@@ -258,7 +265,7 @@
       </div>
       <div class="buttons">
         <button class="btn-primary" onclick="nextRound()">Next Round</button>
-        <button class="btn-secondary" onclick="goToSelect()">Change Word Set</button>
+        <button class="btn-secondary" id="reveal-back-btn" onclick="goToSelect()">Change Word Set</button>
       </div>
     </section>
   </main>
@@ -271,6 +278,7 @@
     let numPlayers = 0;
     let playerNumber = 0;
     let roundNumber = 1;
+    let hasMultipleSets = false;
 
     async function discoverWordSets() {
       const sets = [];
@@ -306,6 +314,13 @@
 
       if (wordSets.length === 0) {
         listEl.innerHTML = '<p>No word sets found</p>';
+        return;
+      }
+
+      hasMultipleSets = wordSets.length > 1;
+
+      if (wordSets.length === 1) {
+        await selectWordSet(wordSets[0].filename);
         return;
       }
 
@@ -432,6 +447,18 @@
       }
 
       document.getElementById('word-display').textContent = word;
+
+      const revealBackBtn = document.getElementById('reveal-back-btn');
+      if (revealBackBtn) {
+        if (hasMultipleSets) {
+          revealBackBtn.textContent = 'Change Word Set';
+          revealBackBtn.onclick = goToSelect;
+        } else {
+          revealBackBtn.textContent = 'Back';
+          revealBackBtn.onclick = goHome;
+        }
+      }
+
       goToScreen('screen-reveal');
     }
 
@@ -441,10 +468,7 @@
     }
 
     function goToSelect() {
-      if (timerId !== null) {
-        clearInterval(timerId);
-        timerId = null;
-      }
+      roundNumber = 1;
       goToScreen('screen-select');
     }
   </script>
