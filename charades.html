@@ -21,12 +21,13 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       align-items: stretch;
       justify-content: center;
       background: var(--bg);
       color: var(--text);
+      overflow: hidden;
     }
 
     main {
@@ -189,6 +190,9 @@
       <h1>Charades</h1>
       <p>Choose a word set</p>
       <div class="word-set-list" id="word-set-list"></div>
+      <div class="buttons">
+        <button class="btn-secondary" onclick="goHome()">Back</button>
+      </div>
     </section>
 
     <!-- Start Screen -->
@@ -197,6 +201,7 @@
       <p>60 seconds to guess as many words as you can.</p>
       <p>Tap <strong>Correct</strong> when your team guesses it, or <strong>Skip</strong> to move on.</p>
       <div class="buttons">
+        <button class="btn-secondary" id="start-back-btn" onclick="goToSelect()">Back</button>
         <button class="btn-primary" onclick="startGame()">Start Game</button>
       </div>
     </section>
@@ -228,7 +233,7 @@
 
       <div class="buttons">
         <button class="btn-primary" onclick="startGame()">Play Again</button>
-        <button class="btn-secondary" onclick="goToSelect()">Change Word Set</button>
+        <button class="btn-secondary" id="summary-back-btn" onclick="goToSelect()">Change Word Set</button>
       </div>
     </section>
   </main>
@@ -242,6 +247,7 @@
     let currentIndex = 0;
     let correct = [];
     let skipped = [];
+    let hasMultipleSets = false;
 
     async function discoverWordSets() {
       const sets = [];
@@ -280,6 +286,13 @@
         return;
       }
 
+      hasMultipleSets = wordSets.length > 1;
+
+      if (wordSets.length === 1) {
+        await selectWordSet(wordSets[0].filename);
+        return;
+      }
+
       wordSets.forEach(set => {
         const btn = document.createElement('button');
         btn.className = 'word-set-btn';
@@ -292,7 +305,21 @@
     async function selectWordSet(setName) {
       selectedWordSet = setName;
       await loadWords(setName);
+      updateStartScreenBackButton();
       showScreen('screen-start');
+    }
+
+    function updateStartScreenBackButton() {
+      const startBackBtn = document.getElementById('start-back-btn');
+      if (startBackBtn) {
+        if (hasMultipleSets) {
+          startBackBtn.textContent = 'Back';
+          startBackBtn.onclick = goToSelect;
+        } else {
+          startBackBtn.textContent = 'Back';
+          startBackBtn.onclick = goHome;
+        }
+      }
     }
 
     async function loadWords(setName) {
@@ -310,6 +337,10 @@
     initWordSetList();
 
     goToSelect();
+
+    function goHome() {
+      window.location.href = 'index.html';
+    }
 
     function showScreen(id) {
       const screens = document.querySelectorAll('.screen');
@@ -404,6 +435,17 @@
       const scoreEl = document.getElementById('summary-score');
       const correctListEl = document.getElementById('correct-list');
       const skippedListEl = document.getElementById('skipped-list');
+      const summaryBackBtn = document.getElementById('summary-back-btn');
+
+      if (summaryBackBtn) {
+        if (hasMultipleSets) {
+          summaryBackBtn.textContent = 'Change Word Set';
+          summaryBackBtn.onclick = goToSelect;
+        } else {
+          summaryBackBtn.textContent = 'Back';
+          summaryBackBtn.onclick = goHome;
+        }
+      }
 
       scoreEl.textContent = correct.length;
 
